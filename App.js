@@ -11,12 +11,13 @@ import SelectedMyPage from "./index/screens/SelectedMyPage";
 // import FAQ from './index/screens/FAQ';
 import HomeModal from "./index/components/Home/HomeModal";
 
-import { KakaoLogin } from "./login/service/kakaoLogin";
+import { KakaoLogin } from "./login/service/SSOLogin";
+import { GithubLogin } from "./login/service/SSOLogin";
+import { NaverLogin } from "./login/service/SSOLogin";
 import Login from "./login/views/login";
 import { useRef } from "react";
 // import AmuseList from "./pages/amuse-list/AmuseList";
 import Footer from "./index/components/Footer";
-import { GithubLogin } from "./login/views/githubLogin";
 
 import Order from "./component/order";
 import Promotion from "./component/Promotion";
@@ -76,9 +77,11 @@ const App = () => {
         <Route path="/newPw" element={<NewPw />} />
         <Route path="/pwComplete" element={<PwComplete />} />
         <Route path="/editMember" element={<FullEditMember />} />
-        <Route path="/kakaoLogin" element={<KakaoLogin />} />
+        {/* <Route path="/kakaoLogin" element={<KakaoLogin />} /> */}
         <Route path="/kakaoInter" element={<KakaoInter />} />
         <Route path="/githubLogin" element={<GithubLogin />} />
+        <Route path="/kakaoLogin" element={<KakaoLogin />} />
+        <Route path="/naverLogin" element={<NaverLogin />} />
         <Route path="/writeList/:id" element={<FullWriteList />} />
         <Route path="/searchPw" element={<SearchPw />} />
         <Route path="/signupComplete" element={<SignUpComplete />} />

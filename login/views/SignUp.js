@@ -32,8 +32,8 @@ const SignUp = () => {
     }
 
     const currentParams = new URLSearchParams(window.location.search);
-    if (currentParams.get("kakaoId")) {
-      setKakaoId(currentParams.get("kakaoId"));
+    if (currentParams.get("kakao_id")) {
+      setKakaoId(currentParams.get("kakao_id"));
     }
 
     const currentParams2 = new URLSearchParams(window.location.search);
@@ -390,7 +390,7 @@ const SignUp = () => {
                   type="hidden"
                   id="member_id"
                   name="member_id"
-                  value={`gg_${gitId}`}
+                  value={`github_${gitId}`}
                 />
               )
             ) : (
@@ -398,7 +398,7 @@ const SignUp = () => {
                 type="hidden"
                 id="member_id"
                 name="member_id"
-                value={`kk_${kakaoId}`}
+                value={`kakao_${kakaoId}`}
               />
             )}
 

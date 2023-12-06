@@ -2,6 +2,7 @@ import { Col, Container, Nav, NavDropdown, Row } from "react-bootstrap";
 import { PersonCircle } from "react-bootstrap-icons";
 import { useEffect, useRef, useState } from "react";
 import { SessionRemove } from "../service/sessionRemove";
+import { checkFileExistance } from "../service/checkFileExistance";
 
 export function HeaderLogin() {
   const member_id = sessionStorage.getItem("MEMBER_ID");
@@ -72,6 +73,14 @@ export function Profile({ member_id, kakao_id, m_image, kakao_name, git_id }) {
   console.log("profile//git_id : " + git_id);
   const kakao_image = sessionStorage.getItem("KAKAO_IMAGE");
 
+  // DB에 등록된 이미지가 실제 프로젝트에 존재하는지 확인(로그인상태라면)
+  // 존재 : true ,, 비존재 : false
+  if(member_id !== null){
+    const projectFolderPath = '../img/profileImg/';
+    const targetFileName = m_image;
+
+    // checkFileExistance(projectFolderPath, targetFileName, member_id);
+  }
   // 로그인 상태(member_id session 존재) 비로그인 상태 구분
   function handleClickProfile(e) {
     if (member_id || kakao_id) {

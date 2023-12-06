@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -19,7 +19,7 @@ const SignUpComplete = () => {
   };
 
   function handleClick() {
-    window.location.href = "/login";
+    window.location.href = "/";
   }
 
   return (
@@ -70,13 +70,14 @@ const SignUpComplete = () => {
               로그인을 하시면 다양한 컨텐츠를 이용하실 수 있습니다.
             </div>
           </Row>
+         
           <Row
             className="d-flex justify-content-center"
             style={{ marginTop: "50px" }}
           >
             <input
               type="button"
-              value="로그인 화면으로"
+              value="메인 화면으로"
               style={buttonStyle}
               onClick={handleClick}
             />
