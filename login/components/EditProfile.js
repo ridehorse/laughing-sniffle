@@ -13,10 +13,12 @@ export function EditProfile() {
   const [m_email, setM_email] = useState("");
   // 카카오로그인 확인
   const [kakao, setKakao] = useState("");
+  // 네이버로그인 확인
+  const [naver, setNaver] = useState("");
 
   const kakao_name = sessionStorage.getItem("KAKAO_NAME");
 
-  // member정보 받아옴 (상태변수로 다른 컴포넌트에서 받아오면 너무 여러곳에서 쓰여서 꼬임)
+  // member정보 받아옴
   useEffect(() => {
     const request = {
       member_id: sessionStorage.getItem("MEMBER_ID"),
@@ -30,10 +32,12 @@ export function EditProfile() {
       console.log("EditProfile // m_name : " + data.m_name);
       console.log("EditProfile // m_image : " + data.m_image);
 
-      if (!sessionStorage.getItem("KAKAO_ID")) {
-        setImgFile(m_image);
-      } else {
+      if (sessionStorage.getItem("KAKAO_ID")) {
         setKakao(sessionStorage.getItem("KAKAO_IMAGE"));
+      } else if(sessionStorage.getItem("NAVER_ID")) {
+        setNaver(sessionStorage.getItem("NAVER_IMAGE"));
+      } else{
+        setImgFile(m_image);
       }
       setM_name(m_name);
       setM_email(m_email);
@@ -183,7 +187,14 @@ export function EditProfile() {
                   className="border rounded-circle"
                   alt="카카오 로그인"
                 />
-              ) : (
+              ) : naver ? (
+                <img
+                  src={naver}
+                  style={{ width: "120px", heigh: "90px" }}
+                  className="border rounded-circle"
+                  alt="네이버 로그인"
+                />
+              ):(
                 <PersonCircle style={{ width: "120px", height: "90px" }} />
               )}
             </div>
@@ -197,6 +208,15 @@ export function EditProfile() {
                 >
                   카카오아이디로 접속중입니다
                 </span>
+              ) : naver ? (
+                <span
+                style={{
+                  fontWeight: "bold",
+                  color: "rgba(100, 80, 180, 0.9)",
+                }}
+              >
+                네이버아이디로 접속중입니다
+              </span>
               ) : (
                 <div>
                   <input

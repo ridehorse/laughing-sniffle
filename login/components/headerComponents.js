@@ -57,7 +57,7 @@ export function HeaderLogout({ setM_image, setMember_id, setKakao_id }) {
 }
 
 // member_id === null : 비로그인, member_id !== null : 로그인
-export function Profile({ member_id, kakao_id, m_image, kakao_name, git_id }) {
+export function Profile({ member_id, kakao_id, m_image, kakao_name, git_id,naver_id }) {
   //로그인(true) 비로그인(false) 구분
   const [login, setLogin] = useState(true);
 
@@ -71,7 +71,9 @@ export function Profile({ member_id, kakao_id, m_image, kakao_name, git_id }) {
   console.log("profile//kakao_id : " + kakao_id);
   console.log("profile//m_image : " + m_image);
   console.log("profile//git_id : " + git_id);
+  console.log("profile//naver_id : " + naver_id);
   const kakao_image = sessionStorage.getItem("KAKAO_IMAGE");
+  const naver_image = sessionStorage.getItem("NAVER_IMAGE")
 
   // DB에 등록된 이미지가 실제 프로젝트에 존재하는지 확인(로그인상태라면)
   // 존재 : true ,, 비존재 : false
@@ -125,13 +127,21 @@ export function Profile({ member_id, kakao_id, m_image, kakao_name, git_id }) {
                 className="border rounded-circle"
                 alt="img"
               />
+            ) : naver_image ? (
+              <img
+              src={naver_image}
+              style={{ width: "30px", height: "30px" }}
+              className="border rounded-circle"
+              alt="img"
+             />
             ) : (
               <span style={{ width: "30px", height: "30px" }}>
                 <PersonCircle style={{ width: "30px", height: "30px" }} />
               </span>
-            )}
+            )
+            }
             <span style={{ marginLeft: "4px", fontSize: "14px" }}>
-              {kakao_name || git_id || member_id || ""}
+              {kakao_name || member_id || ""}
             </span>
           </span>
         }
@@ -148,7 +158,7 @@ export function Profile({ member_id, kakao_id, m_image, kakao_name, git_id }) {
           }}
         >
           <span style={{ fontWeight: "bold" }}>
-            {kakao_name || git_id || member_id || "방문객"}
+            {kakao_name || member_id || "방문객"}
           </span>
           님 환영합니다!
         </div>

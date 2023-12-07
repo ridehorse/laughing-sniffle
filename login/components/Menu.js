@@ -15,6 +15,7 @@ function Menu({ onChangeSearchName, searchNameRef }) {
   const [m_image, setM_image] = useState("");
   const [kakao_name, setKakao_name] = useState("");
   const [git_id, setGit_id] = useState("");
+  const [naver_id, setNaver_id] = useState("");
 
   // 카카오로그인
   useEffect(() => {
@@ -34,29 +35,30 @@ function Menu({ onChangeSearchName, searchNameRef }) {
     ) {
       console.log("git로그인 접속");
 
-      setGit_id(sessionStorage.getItem("GIT_ID"));
+      setGit_id(sessionStorage.getItem("GIT_ID"));    
+      
+      // naver로그인
+    } else if (
+      sessionStorage.getItem("MEMBER_ID") &&
+      sessionStorage.getItem("NAVER_ID")
+    ) {
+      console.log("naver로그인 접속");
 
-      const request = {
-        member_id: sessionStorage.getItem("MEMBER_ID"),
-      };
-
-      // 헤더바에 image 표출하기 위한 통신(member_Id에 저장된 정보 가지고 온다)
-      call("/mypage/getMember", "POST", request).then((response) => {
-        console.log(response.member_id);
-        console.log("Menu // getMember 입력 받음");
-        console.log("Menu // getMember // m_image : " + response.m_image);
-        setMember_id(response.member_id);
-        setM_image(response.m_image);
-      });
+      setNaver_id(sessionStorage.getItem("NAVER_ID"));
 
       // 일반로그인
     } else if (sessionStorage.getItem("MEMBER_ID")) {
       console.log("일반로그인 접속");
+      
+      // 비로그인
+    } else {
+    }
+    
+    // 헤더바에 image 표출하기 위한 통신(member_Id에 저장된 정보 가지고 온다)
+    if(sessionStorage.getItem("MEMBER_ID")){
       const request = {
         member_id: sessionStorage.getItem("MEMBER_ID"),
       };
-
-      // 헤더바에 image 표출하기 위한 통신(member_Id에 저장된 정보 가지고 온다)
       call("/mypage/getMember", "POST", request).then((response) => {
         console.log(response.member_id);
         console.log("Menu // getMember 입력 받음");
@@ -64,9 +66,8 @@ function Menu({ onChangeSearchName, searchNameRef }) {
         setMember_id(response.member_id);
         setM_image(response.m_image);
       });
-      // 비로그인
-    } else {
-    }
+   }
+
   }, []);
   if (window.location.pathname === "/kakaoInter") {
     return null;
@@ -144,6 +145,7 @@ function Menu({ onChangeSearchName, searchNameRef }) {
                     m_image={m_image}
                     kakao_name={kakao_name}
                     git_id={git_id}
+                    naver_id={naver_id}
                   />
                   <Form
                     action="/list"

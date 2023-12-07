@@ -17,6 +17,7 @@ const SignUp = () => {
   // git_id값 hidden 에 저장(git_id가 없으면 false로 저장)
   const [kakaoId, setKakaoId] = useState("false");
   const [gitId, setGitId] = useState("false");
+  const [naverId, setNaverId] = useState("false");
 
   useEffect(() => {
     if (sessionStorage.getItem("KAKAO_ID") !== null) {
@@ -31,6 +32,12 @@ const SignUp = () => {
       console.log("signUp/git_id : " + gitId);
     }
 
+    if (sessionStorage.getItem("NAVER_ID") !== null) {
+      setNaverId(sessionStorage.getItem("NAVER_ID"));
+
+      console.log("signUp/naver_id : " + naverId);
+    }
+
     const currentParams = new URLSearchParams(window.location.search);
     if (currentParams.get("kakao_id")) {
       setKakaoId(currentParams.get("kakao_id"));
@@ -40,7 +47,14 @@ const SignUp = () => {
     if (currentParams2.get("gid_id")) {
       setGitId(currentParams2.get("gid_id"));
     }
+
+    const currentParams3 = new URLSearchParams(window.location.search);
+    if (currentParams3.get("naver_id")) {
+      setNaverId(currentParams3.get("naver_id"));
+    }
   }, []);
+
+  const trunNaverId = naverId.substring(0, 13);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [correctMessage, setCorrectMessage] = useState("");
@@ -186,6 +200,8 @@ const SignUp = () => {
     console.log(kakao_id);
     const git_id = formRef.current.querySelector("#hidden2").value;
     console.log(git_id);
+    const naver_id = formRef.current.querySelector("#hidden3").value;
+    console.log(naver_id);
     const member_id = formRef.current.querySelector("#member_id").value;
 
     const m_pass = formRef.current.querySelector("#m_pass").value;
@@ -303,6 +319,7 @@ const SignUp = () => {
       m_gender: m_gender,
       m_kakao_id: kakao_id,
       m_github_id: git_id,
+      m_naver_id: naver_id,
     };
 
     console.log(param);
@@ -328,7 +345,19 @@ const SignUp = () => {
           </Row>
           {kakaoId === "false" ? (
             gitId === "false" ? (
+              naverId === "false" ? (
               ""
+              ) : (
+                <Row
+                className="p-4 mx-2 border-1 border border-success text-center"
+                style={{ marginTop: "20px", marginBottom: "30px" }}
+              >
+                <div style={{ fontWeight: "bold" }}>
+                  첫 1회 로그인시에는 EXCITINGAMUSEMENT의 컨텐츠를 이용하기 위한
+                  정보입력이 필요합니다.
+                </div>
+              </Row>
+              )
             ) : (
               <Row
                 className="p-4 mx-2 border-1 border border-success text-center"
@@ -359,9 +388,12 @@ const SignUp = () => {
             <input type="hidden" id="hidden" name="hidden" value={kakaoId} />
             {/* gitid 존재여부 저장 */}
             <input type="hidden" id="hidden2" name="hidden2" value={gitId} />
+            {/* naverid 존재여부 저장 */}
+            <input type="hidden" id="hidden3" name="hidden3" value={naverId} />
             {/* 아이디 */}
             {kakaoId === "false" ? (
               gitId === "false" ? (
+                naverId === "false" ? (
                 <div className="mb-4">
                   <Row className="mb-2">
                     <div className="signup-text">아이디</div>
@@ -385,6 +417,14 @@ const SignUp = () => {
                     <CorrectMessage correctMessage={correctMessage} />
                   ) : null}
                 </div>
+                ) : (
+                  <input
+                  type="hidden"
+                  id="member_id"
+                  name="member_id"
+                  value={`naver_${trunNaverId}`}
+                />
+                )
               ) : (
                 <input
                   type="hidden"
@@ -405,6 +445,7 @@ const SignUp = () => {
             {/* 비밀번호 */}
             {kakaoId === "false" ? (
               gitId === "false" ? (
+                naverId === "false" ? (
                 <div className="mb-4">
                   <Row className="mb-2">
                     <div className="signup-text">비밀번호</div>
@@ -428,6 +469,14 @@ const SignUp = () => {
                     <CorrectMessage correctMessage={correctMessage} />
                   ) : null}{" "}
                 </div>
+                ):(
+                  <input
+                  type="hidden"
+                  id="m_pass"
+                  name="m_pass"
+                  value={randomPass}
+                />
+                )
               ) : (
                 <input
                   type="hidden"
@@ -448,6 +497,7 @@ const SignUp = () => {
             {/* 비밀번호 확인 */}
             {kakaoId === "false" ? (
               gitId === "false" ? (
+                naverId === "false" ? (
                 <div className="mb-4">
                   <Row className="mb-2">
                     <div className="signup-text">비밀번호 확인</div>
@@ -471,6 +521,14 @@ const SignUp = () => {
                     <CorrectMessage correctMessage={correctMessage} />
                   ) : null}{" "}
                 </div>
+                ) : (
+                  <input
+                  type="hidden"
+                  id="m_pass2"
+                  name="m_pass2"
+                  value={randomPass}
+                />
+                )
               ) : (
                 <input
                   type="hidden"

@@ -225,7 +225,7 @@ const Login = () => {
                 margintop: "0px",
                 cursor: "pointer",
               }}
-              alt="github아이콘"
+              alt="네이버아이콘"
               onClick={() => handleClickNaver("naver")}
             />
           </Row>
